@@ -43,7 +43,7 @@ def update_book(request, pk):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect(reverse("book_details", args=[pk]))
+            return redirect(reverse("core:book_details", args=[pk]))
         else:
             form = BookForm(instance=book)
     return render(request, "core/book_form.html", {"form": form})
@@ -67,5 +67,5 @@ def assign_book(request, pk):
         BookLoan.objects.create(book=book, reader=reader)
         book.is_available = False
         book.save()
-        return redirect("book_detail", pk=book.pk)
+        return redirect("core:book_detail", pk=book.pk)
     return render(request, "core/assign_book.html", {"book": book})

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .forms import ReaderSignUpForm
 
 
@@ -12,7 +12,15 @@ def register_user(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("core/book_list")
+            return redirect("core:book_list")
     else:
         form = ReaderSignUpForm()
     return render(request, "authentication/register.html", {"form": form})
+
+
+def logout_user(request):
+    """
+    Custom logout function
+    """
+    logout(request)
+    return redirect("login")

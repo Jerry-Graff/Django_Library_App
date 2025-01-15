@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ book.title }} Details{% endblock %}
+
+{% block content %}
+<h1>{{ book.title }}</h1>
+<p>Author: {{ book.author }}</p>
+<p>Published: {{ book.published_date }}</p>
+<p>Available: {{ book.is_available }}</p>
+
+{% if request.user.is_authenticated and book.is_available %}
+  <form method="POST" action="{% url 'core:assign_book' book.pk %}">
+    {% csrf_token %}
+    <button type="submit">Request/Loan this Book</button>
+  </form>
+{% endif %}
+
+<a href="{% url 'core:book_list' %}">Back to list</a>
+{% endblock %}

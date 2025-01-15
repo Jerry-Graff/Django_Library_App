@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Assign Book{% endblock %}
+
+{% block content %}
+<h1>Assign Book: {{ book.title }}</h1>
+<p>Are you sure you want to loan this book?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirm Loan</button>
+</form>
+<a href="{% url 'core:book_detail' book.pk %}">Cancel</a>
+{% endblock %}
