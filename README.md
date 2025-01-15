@@ -47,5 +47,5 @@ This application is a basic library system allowing users to:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/<your-username>/django-library-app.git
+   git clone https://github.com/Jerry-Graff/django-library-app.git
    cd django-library-app
