@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from .models import Book
+from .models import Book, Reader, BookLoan
 from .forms import BookForm
 
 
@@ -28,7 +28,7 @@ def create_book(request):
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(reverse("core/book_list.html"))
+            return redirect(reverse("book_list.html"))
         else:
             form = BookForm()
             return render(request, "core/book_form.html", {"form": form})
@@ -43,7 +43,7 @@ def update_book(request, pk):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect(reverse("core/book_details", args=[pk]))
+            return redirect(reverse("book_details", args=[pk]))
         else:
             form = BookForm(instance=book)
     return render(request, "core/book_form.html", {"form": form})
@@ -56,5 +56,16 @@ def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == "POST":
         book.delete()
-        return redirect(reverse("core/book_list.html"))
+        return redirect(reverse("book_list.html"))
     return render(request, "core/book_confirm_delete.html", {"book": book})
+
+
+def assign_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == "POST":
+        reader = get_object_or_404(Reader, user=request.user)
+        BookLoan.objects.create(book=book, reader=reader)
+        book.is_available = False
+        book.save()
+        return redirect("book_detail", pk=book.pk)
+    return render(request, "core/assign_book.html", {"book": book})
