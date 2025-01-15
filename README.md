@@ -1,7 +1,7 @@
 # Django Library App
 
 Welcome to the **Django Library App**! You can visit the site by going to:  
-**[www.djangolibapp.xzy](http://www.djangolibapp.xzy/)**
+**[www.djangolibapp.xzy](http://www.djangolibapp.xyz/)**
 
 This application is a basic library system allowing users to:
 - View and loan books.
@@ -47,5 +47,5 @@ This application is a basic library system allowing users to:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Jerry-Graff/django-library-app.git
-   cd django-library-app
+   git clone https://github.com/Jerry-Graff/django_library_app.git
+   cd django_library_app
