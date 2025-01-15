@@ -4,13 +4,13 @@ from . import views
 
 urlpatterns = [
     path(
-        "login/",  # Use Djangos built in Login view
+        "login/",
         LoginView.as_view(template_name="authentication/login.html"),
         name="login"),
 
     path(
-        "logout/",  # Use djangos built in Logout view
-        views.logout_user,  # Redirect user to login
+        "logout/",
+        views.logout_user,
         name="logout"),
 
     path("register/", views.register_user, name="register"),
