@@ -31,15 +31,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["djangolibapp.xzy", "www.djangolibapp.xzy"]
-
-# HTTPS - Secure Cookies
-CSRF_TRUSTED_ORIGINS = ["https://djangolibapp.xzy", "https://www.djangolibapp.xzy"]
-SECURE_SSL_REDIRECT = env("SECURE_SSL_REDIRECT")
-SESSION_COOKIE_SECURE = env("SESSION_COOKIE_SECURE")
-CSRF_COOKIE_SECURE = env("CSRF_COOKIE_SECURE")
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 # Application definition
 
