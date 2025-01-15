@@ -20,7 +20,7 @@ class Reader(models.Model):
     Stores reader details.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(max_length=254)
 
     def __str__(self):
         return f"Username: {self.user}"
