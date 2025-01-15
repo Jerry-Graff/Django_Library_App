@@ -2,22 +2,27 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Library App{% endblock %}</title>
+    <title>{% block title %}Online Library{% endblock %}</title>
+    {% if messages %}
+        {% for message in messages %}
+            <p class="alert">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
 </head>
 <body>
-    <header>
-        <nav>
-            <!-- Example Nav: Adjust as needed -->
-            <a href="{% url 'home' %}">Home</a> |
-            {% if user.is_authenticated %}
-                Welcome, {{ user.username }}!
-                <a href="{% url 'logout' %}">Logout</a> |
-            {% else %}
-                <a href="{% url 'login' %}">Login</a> |
-                <a href="{% url 'register' %}">Sign Up</a> |
+    <nav>
+        <a href="{% url 'core:book_list' %}">Home</a> |
+        {% if request.user.is_authenticated %}
+            Welcome, {{ request.user.username }} |
+            {% if request.user.is_staff %}
+                <a href="{% url 'core:reader_list' %}">Readers</a> |
             {% endif %}
-        </nav>
-    </header>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'register' %}">Sign Up</a>
+        {% endif %}
+    </nav>
     <hr>
     {% block content %}{% endblock %}
     <hr>

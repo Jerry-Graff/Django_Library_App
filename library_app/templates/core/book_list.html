@@ -11,4 +11,8 @@
     </li>
   {% endfor %}
 </ul>
+
+{% if request.user.is_staff %}
+  <a href="{% url 'core:book_create' %}">Add New Book</a>
+{% endif %}
 {% endblock %}

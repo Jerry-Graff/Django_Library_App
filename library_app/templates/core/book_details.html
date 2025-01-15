@@ -7,11 +7,25 @@
 <p>Published: {{ book.published_date }}</p>
 <p>Available: {{ book.is_available }}</p>
 
-{% if request.user.is_authenticated and book.is_available %}
-  <form method="POST" action="{% url 'core:assign_book' book.pk %}">
-    {% csrf_token %}
-    <button type="submit">Request/Loan this Book</button>
-  </form>
+{% if request.user.is_staff %}
+  <a href="{% url 'core:book_update' book.pk %}">Edit Book</a> |
+  <a href="{% url 'core:book_delete' book.pk %}">Delete Book</a>
+  <br><br>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+  {% if book.is_available %}
+    <form method="POST" action="{% url 'core:assign_book' book.pk %}">
+      {% csrf_token %}
+      <button type="submit">Request/Loan this Book</button>
+    </form>
+  {% else %}
+    <p>This book is currently on loan.</p>
+    <form method="POST" action="{% url 'core:reserve_book' book.pk %}">
+      {% csrf_token %}
+      <button type="submit">Reserve this Book</button>
+    </form>
+  {% endif %}
 {% endif %}
 
 <a href="{% url 'core:book_list' %}">Back to list</a>

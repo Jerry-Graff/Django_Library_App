@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import environ
 
+LOGIN_REDIRECT_URL = 'core:book_list'  # Overide django default login redirect
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

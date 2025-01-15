@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Reader, BookLoan
+from .models import Book, Reader, BookLoan, Reservation
 
 
 @admin.register(Book)
@@ -14,4 +14,9 @@ class ReaderAdmin(admin.ModelAdmin):
 
 @admin.register(BookLoan)
 class BookLoanAdmin(admin.ModelAdmin):
-    list_display = ("book", "reader", "loan_date", "return_date")
+    list_display = ("book", "reader", "loan_date", "due_date")
+
+
+@admin.register(Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ("book", "reader", "request_date", "is_active")

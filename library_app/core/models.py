@@ -1,3 +1,5 @@
+from datetime import timedelta
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -33,7 +35,25 @@ class BookLoan(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     reader = models.ForeignKey(Reader, on_delete=models.CASCADE)
     loan_date = models.DateField(auto_now_add=True)
-    return_date = models.DateField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        """
+        Function to set due date to two weeks after a book is checked out
+        """
+        if not self.id:
+            self.due_date = timezone.now().date() + timedelta(weeks=2)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.book.title} loaned to {self.reader.user.username}"
+
+
+class Reservation(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    reader = models.ForeignKey(Reader, on_delete=models.CASCADE)
+    request_date = models.DateField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Reservation for {self.book.title} by {self.reader}"
